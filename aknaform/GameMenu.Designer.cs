@@ -38,6 +38,8 @@
             button2 = new Button();
             button3 = new Button();
             button4 = new Button();
+            button5 = new Button();
+            button6 = new Button();
             ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numericUpDown2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numericUpDown3).BeginInit();
@@ -144,11 +146,35 @@
             button4.UseVisualStyleBackColor = true;
             button4.Click += button4_Click;
             // 
+            // button5
+            // 
+            button5.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            button5.Location = new Point(12, 128);
+            button5.Name = "button5";
+            button5.Size = new Size(146, 23);
+            button5.TabIndex = 10;
+            button5.Text = "Betöltés";
+            button5.UseVisualStyleBackColor = true;
+            button5.Click += button5_Click;
+            // 
+            // button6
+            // 
+            button6.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            button6.Location = new Point(164, 128);
+            button6.Name = "button6";
+            button6.Size = new Size(146, 23);
+            button6.TabIndex = 11;
+            button6.Text = "Mentés";
+            button6.UseVisualStyleBackColor = true;
+            button6.Click += button6_Click;
+            // 
             // GameMenu
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(322, 134);
+            ClientSize = new Size(322, 157);
+            Controls.Add(button6);
+            Controls.Add(button5);
             Controls.Add(button4);
             Controls.Add(button3);
             Controls.Add(button2);
@@ -162,7 +188,6 @@
             FormBorderStyle = FormBorderStyle.FixedToolWindow;
             Name = "GameMenu";
             Text = "GameMenu";
-            FormClosing += GameMenu_FormClosing;
             ((System.ComponentModel.ISupportInitialize)numericUpDown1).EndInit();
             ((System.ComponentModel.ISupportInitialize)numericUpDown2).EndInit();
             ((System.ComponentModel.ISupportInitialize)numericUpDown3).EndInit();
@@ -182,5 +207,7 @@
         private Button button2;
         private Button button3;
         private Button button4;
+        private Button button5;
+        private Button button6;
     }
 }

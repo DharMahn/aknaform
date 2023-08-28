@@ -36,14 +36,6 @@ namespace aknaform
             Close();
         }
 
-        private void GameMenu_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            if (DialogResult != DialogResult.OK)
-            {
-                DialogResult = DialogResult.Cancel;
-            }
-        }
-
         private void button2_Click(object sender, EventArgs e)
         {
             numericUpDown1.Value = 9;
@@ -65,5 +57,14 @@ namespace aknaform
             numericUpDown3.Value = 99;
         }
 
+        private void button5_Click(object sender, EventArgs e)
+        {
+            DialogResult = DialogResult.Abort;
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            DialogResult = DialogResult.Ignore;
+        }
     }
 }

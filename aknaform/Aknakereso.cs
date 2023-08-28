@@ -10,7 +10,8 @@ internal class Aknakereso
 {
     sbyte[,] grid = new sbyte[0, 0];
     sbyte[,] mask = new sbyte[0, 0];
-
+    public int GetMapWidth => grid.GetLength(0);
+    public int GetMapHeight => grid.GetLength(1);
     int bombs = 10;
     bool gameover = false;
     readonly Random r = new();
@@ -46,7 +47,7 @@ internal class Aknakereso
         {
             return false;
         }
-        grid[x, y] = val;
+        mask[x, y] = val;
         return true;
     }
     private bool InBounds(int x, int y)
@@ -62,9 +63,9 @@ internal class Aknakereso
     {
         using (StreamReader sr = new("save.txt"))
         {
-            int w = int.Parse(sr.ReadLine());
-            int h = int.Parse(sr.ReadLine());
-            int b = int.Parse(sr.ReadLine());
+            int w = int.Parse(sr.ReadLine()!);
+            int h = int.Parse(sr.ReadLine()!);
+            int b = int.Parse(sr.ReadLine()!);
             grid = new sbyte[w, h];
             mask = new sbyte[w, h];
             bombs = b;
@@ -73,18 +74,18 @@ internal class Aknakereso
                 string[] line;
                 for (int y = 0; y < grid.GetLength(1); y++)
                 {
-                    line = sr.ReadLine().Split(",");
+                    line = sr.ReadLine()!.Split(",");
                     for (int x = 0; x < grid.GetLength(0); x++)
                     {
-                        grid[x, y] = sbyte.Parse(line[x]);
+                        SetCellValue(x, y, sbyte.Parse(line[x]));
                     }
                 }
                 for (int y = 0; y < mask.GetLength(1); y++)
                 {
-                    line = sr.ReadLine().Split(",");
+                    line = sr.ReadLine()!.Split(",");
                     for (int x = 0; x < mask.GetLength(0); x++)
                     {
-                        mask[x, y] = sbyte.Parse(line[x]);
+                        SetMaskValue(x, y, sbyte.Parse(line[x]));
                     }
                 }
             }
@@ -212,12 +213,12 @@ internal class Aknakereso
             ///nincs zászló (0)
             if (mask[x, y] == 0)
             {
-                mask[x, y] = 1;
+                SetMaskValue(x, y, 1);
             }
             ///van zászló (1)
             else if (mask[x, y] == 1)
             {
-                mask[x, y] = 0;
+                SetMaskValue(x, y, 0);
             }
             ///fel van fedve (-1)
             return true;
@@ -305,7 +306,7 @@ internal class Aknakereso
                 x = r.Next(w);
                 y = r.Next(h);
             }
-            grid[x, y] = 9;
+            SetCellValue(x, y, 9);
         }
 
         ///megszámoljuk a szomszédos cellákat
@@ -316,7 +317,7 @@ internal class Aknakereso
             {
                 if (grid[x, y] != 9)
                 {
-                    grid[x, y] = CountBombs(x, y);
+                    SetCellValue(x, y, CountBombs(x, y));
                 }
             }
         });

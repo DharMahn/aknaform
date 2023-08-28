@@ -44,21 +44,33 @@ namespace aknaform
 
         void NewGame()
         {
-            firstClick = true;
             menu ??= new GameMenu() { Left = Left + 20, Top = Top + 20 };
+            menu.ShowDialog();
 
-
-            DialogResult = menu.ShowDialog();
-
-            aknakereso = new Aknakereso();
             if (menu.DialogResult == DialogResult.OK)
             {
+                aknakereso = new Aknakereso();
+                firstClick = true;
                 mapwidth = menu.W;
                 mapheight = menu.H;
             }
-            else
+            else if (menu.DialogResult == DialogResult.Abort)
             {
-                Environment.Exit(0);
+                aknakereso = new Aknakereso();
+                aknakereso.LoadGame();
+                mapwidth = aknakereso.GetMapWidth;
+                mapheight = aknakereso.GetMapHeight;
+            }
+            else if (menu.DialogResult == DialogResult.Ignore)
+            {
+                if (aknakereso != null)
+                {
+                    aknakereso.SaveGame();
+                }
+                else
+                {
+                    MessageBox.Show("Nincs aktív játék");
+                }
             }
             RecalculateSizes();
             font = new Font(new FontFamily("Arial"), fontSize);
@@ -264,7 +276,7 @@ namespace aknaform
                 }
                 else
                 {
-                    Application.Exit();
+                    Environment.Exit(0);
                 }
             }
         }
